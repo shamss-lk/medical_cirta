@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 
 
 from patient.models import Patient 
+from docs.models import Docs 
 
 
 def HomePage(request):
@@ -12,6 +13,28 @@ def HomePage(request):
     return render(request, "index.html")
 
 
+
+def LoginDoc(request):
+    if 'logindoc' not in request.session:
+        request.session['logindoc'] = False
+
+    if request.session['logindoc'] == False:
+        err_auth = False
+        if request.method == "POST":
+            email = request.POST['email']
+            password = request.POST['password']
+
+            obj = Docs.objects.filter(email=email, password=password)
+            if obj.exists():
+                request.session['logindoc'] = True
+                request.session['id'] = obj[0].id
+                return redirect('/doctor')
+            else:
+                err_auth = True
+
+        return render(request, "login_doc.html", {"err_auth":err_auth})
+    else:
+        return redirect('/doctor')
 
 
 def Login(request):
@@ -98,9 +121,41 @@ def PatientHome(request):
         return redirect('/')
     
 
+
+
+def DoctorHome(request):
+    if "logindoc" not in request.session:
+        request.session['logindoc'] = False
+
+    if request.session['logindoc'] == True:
+        return render(request, "doctor.html")
+    else:
+        return redirect('/')
+    
+
+def WaitingList(request):
+    if "logindoc" not in request.session:
+        request.session['logindoc'] = False
+
+    if request.session['logindoc'] == True:
+        return render(request, "waitinglist.html")
+    else:
+        return redirect('/')
+    
+def DocMessage(request):
+    if "logindoc" not in request.session:
+        request.session['logindoc'] = False
+
+    if request.session['logindoc'] == True:
+        return render(request, "doc_msg.html")
+    else:
+        return redirect('/')
+    
+
 def Logout(request):
     request.session['login'] = False
-    return redirect('/login')
+    request.session['logindoc'] = False
+    return redirect('/')
 
 
 
@@ -114,12 +169,12 @@ def Traitement(request):
         return redirect('/')
     
 
-def Prevision(request):
+def Remission(request):
     if "login" not in request.session:
         request.session['login'] = False
 
     if request.session['login'] == True:
-        return render(request, "prevision.html")
+        return render(request, "remission.html")
     else:
         return redirect('/')
     
@@ -129,5 +184,15 @@ def Historique(request):
 
     if request.session['login'] == True:
         return render(request, "historique.html")
+    else:
+        return redirect('/')
+    
+
+def Symp(request):
+    if "login" not in request.session:
+        request.session['login'] = False
+
+    if request.session['login'] == True:
+        return render(request, "symptoms.html")
     else:
         return redirect('/')

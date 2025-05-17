@@ -25,7 +25,7 @@
 
         <link href="{% static 'css/style.css'%}" rel="stylesheet">
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="{% static 'css/owl.theme.default.min.css'%}" rel="stylesheet">
 
         <link href="{% static 'css/templatemo-medic-care.css'%}" rel="stylesheet">
@@ -71,11 +71,11 @@ https://templatemo.com/tm-566-medic-care
                 </div>
             </nav>
 
-            <div id="vertnav">
-                <a href="/user">Dashboard</a>
-                <a href="/historique">Historique</a>
-                <a href="/traitement">Traitement</a>
-                <a href="/prevision" class="selected">Prévision</a>
+            <div id="vertnav" class="vertnavdoc">
+                <a href="/doctor">Dashboard</a>
+                <a href="/waitinglist">Waiting list</a>
+                <a href="/doc-message">Messages</a>
+                
                
                 <a href="/logout" id="logout-btn">Logout</a>
                
@@ -83,7 +83,27 @@ https://templatemo.com/tm-566-medic-care
             
 
             <div class="content-patient">
-                <h1>Prévision</h1>
+                <h1>Dashboard Doctor</h1>
+              
+                    
+
+                <h3>Notifications:</h3>
+                <div class="noti">
+                    <i class="fa-solid fa-bell"></i>
+                    <div>
+                        3 patients onts laissé un message.
+                    </div>
+                </div>
+
+                <div class="noti">
+                    <i class="fa-solid fa-bell"></i>
+                    <div>
+                        10 patients onts soumis un formulaire de traitement.
+                    </div>
+                </div>
+    
+
+                
             </div>
 
 

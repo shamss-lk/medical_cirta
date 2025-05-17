@@ -25,7 +25,7 @@
 
         <link href="{% static 'css/style.css'%}" rel="stylesheet">
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="{% static 'css/owl.theme.default.min.css'%}" rel="stylesheet">
 
         <link href="{% static 'css/templatemo-medic-care.css'%}" rel="stylesheet">
@@ -71,12 +71,10 @@ https://templatemo.com/tm-566-medic-care
                 </div>
             </nav>
 
-            <div id="vertnav">
-                <a href="/user">Dashboard</a>
-                <a href="/historique">Historique des poussée</a>
-                <a href="/traitement" class="selected">Traitement</a>
-                <a href="/symptoms">Symptômes</a>
-                <a href="/remission" >Rémission</a>
+            <div id="vertnav" class="vertnavdoc">
+                <a href="/doctor">Dashboard</a>
+                <a href="/waitinglist">Waiting list</a>
+                <a href="/doc-message">Messages</a>
                 
                
                 <a href="/logout" id="logout-btn">Logout</a>
@@ -85,20 +83,11 @@ https://templatemo.com/tm-566-medic-care
             
 
             <div class="content-patient">
-                <h1>Historique des poussées:</h1>
-                <form action="" id="treat_form">
-                    <p>Veuillez indiquez la date: </p>
-                    <input type="date">
-                    <br>
-                    <p>Détail:</p>
-                    <textarea name="" id="" style="width: 100%;box-sizing: border-box;
-                    padding: 10px;border: 1px solid lightgray; margin: 20px 0px;border-radius: 10px; height: 200px;">
+                <h1>Waiting List</h1>
+              
+                     
 
-                    </textarea>
-
-                    <button style="background-color: rgb(0, 149, 255); color:white;border:none;
-                        padding: 10px; border-radius: 10px;">Valider</button>
-                </form>
+                
             </div>
 
 

@@ -72,10 +72,12 @@ https://templatemo.com/tm-566-medic-care
             </nav>
 
             <div id="vertnav">
-                <a href="/user" class="selected">Dashboard</a>
-                <a href="/historique">Historique</a>
-                <a href="/traitement">Traitement</a>
-                <a href="/prevision">Prévision</a>
+                <a href="/user">Dashboard</a>
+                <a href="/historique">Historique des poussée</a>
+                <a href="/traitement" class="selected">Traitement</a>
+                <a href="/symptoms">Symptômes</a>
+                <a href="/remission" >Rémission</a>
+                
                
                 <a href="/logout" id="logout-btn">Logout</a>
                
@@ -84,6 +86,86 @@ https://templatemo.com/tm-566-medic-care
 
             <div class="content-patient">
                 <h1>Dashboard</h1>
+                <div id="dashboard-command">
+                    <div class="mcard">
+                        <h3>Régime alimentaire:</h3>
+                        <p><i>Aliments Recommandés</i></p>
+                        <label>
+                            <input type="checkbox" name="aliments" value="poisson">
+                            Poisson gras
+                        </label>
+                        <br>
+                        <label>
+                            <input type="checkbox" name="aliments" value="banane">
+                            Banane mures
+                        </label>
+                        <br>
+                        <label>
+                            <input type="checkbox" name="aliments" value="riz">
+                            Riz Blanc
+                        </label>
+                        <label>
+                            <input type="checkbox" name="aliments" value="pain">
+                            Pain Blanc
+                        </label>
+                        <br>
+                        <label>
+                            <input type="checkbox" name="aliments" value="compote">
+                            Compote de pomme
+                        </label>
+                       
+                     
+                    </div>
+
+                    <div class="mcard">
+                        <h3>Dérnier examen:</h3>
+                        <div>
+                            <p><b>Coloscopie</b></p>
+                            <input type="date" id="coloscopie">
+                        </div>
+                        <div>
+                            <p><b>Prise de sang</b></p>
+                            <input type="date" id="sang">
+                        </div>
+                        <div>
+                            <p><b>Echographique abdominale</b></p>
+                            <input type="date" id="echo">
+                        </div>
+                        
+                    </div>
+
+                    <div class="mcard">
+                        <h3>Etat de santé actuel :</h3>
+                        <div>
+                            <p><b>Dernière poussée:</b></p>
+                            <input type="date" id="poussee">
+                        </div>
+                        <div>
+                            <p><b>Symptômes :</b></p>
+                            <label>
+                                <input type="checkbox" name="symp" value="douleurs">
+                                Douleurs abdominale
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="symp" value="diarr">
+                                Diarrhée
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="symp" value="fatigue">
+                               Fatigue
+                            </label>                           
+                                                      
+                       
+                        </div>                       
+                     
+                    </div>
+                    
+                </div>
+
+                <button  style="background-color: rgb(0, 149, 255); color:white;border:none;
+                padding: 10px; border-radius: 10px;">Valider</button>
             </div>
 
 
