@@ -31,4 +31,7 @@ urlpatterns = [
     path('remission/', views.Remission),
     path('symptoms/', views.Symp),
     path('historique/', views.Historique),
+
+    path('post-state/', views.PostState),
+    path('post-operation/', views.PostOperation),
 ]

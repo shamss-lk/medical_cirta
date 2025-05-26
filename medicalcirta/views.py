@@ -1,9 +1,12 @@
 
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 
 from patient.models import Patient 
 from docs.models import Docs 
+from state.models import StateModel 
+from operation.models import Operation 
 
 
 def HomePage(request):
@@ -196,3 +199,50 @@ def Symp(request):
         return render(request, "symptoms.html")
     else:
         return redirect('/')
+    
+
+
+
+def PostState(request):
+    if request.method == 'POST':
+        poussee = request.POST.get('poussee')
+        symp = request.POST.get('symp')
+        aliments = request.POST.get('aliments')
+        echo = request.POST.get('echo')
+        coloscopie = request.POST.get('coloscopie')
+        sang = request.POST.get('sang')
+        iduser = request.session['id']
+
+        st = StateModel()
+        st.poussee = poussee
+        st.symp = symp
+        st.echo = echo
+        st.regime = aliments
+        st.coloscopie = coloscopie
+        st.sang = sang
+        st.iduser = iduser
+        st.save()
+
+        return JsonResponse({'done': True})
+    
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=400)
+
+
+
+def PostOperation(request):
+    if request.method == 'POST':
+        date = request.POST.get('date')
+        type = request.POST.get('type')
+        detail = request.POST.get('detail')
+        iduser = request.session['id']
+
+        st = Operation()
+        st.date = date
+        st.type_operation = type
+        st.detail = detail        
+        st.iduser = iduser
+        st.save()
+
+        return JsonResponse({'done': True})
+    
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=400)
