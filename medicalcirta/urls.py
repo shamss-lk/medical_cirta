@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import  views
+
+from .views import llm_page, query_llm
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomePage),
@@ -31,4 +34,6 @@ urlpatterns = [
     path('remission/', views.Remission),
     path('symptoms/', views.Symp),
     path('historique/', views.Historique),
+    path("llm/", llm_page, name="llm_page"),
+    path("api/llm/", query_llm, name="query_llm"),
 ]

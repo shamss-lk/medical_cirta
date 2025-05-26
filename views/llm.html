@@ -1,0 +1,186 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>ChatBot - Medical Cirta</title>
+      <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+        <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+
+        <link href="{% static 'css/bootstrap-icons.css'%}" rel="stylesheet">
+
+        <link href="{% static 'css/owl.carousel.min.css'%}" rel="stylesheet">
+
+        <link href="{% static 'css/style.css'%}" rel="stylesheet">
+
+
+        <link href="{% static 'css/owl.theme.default.min.css'%}" rel="stylesheet">
+
+        <link href="{% static 'css/templatemo-medic-care.css'%}" rel="stylesheet">
+
+    <!-- Fonts & CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/templatemo-medic-care.css' %}" rel="stylesheet">
+
+    <style>
+        .chat-box {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .user {
+            background-color: #cce5ff;
+            align-self: flex-end;
+            text-align: right;
+        }
+
+        .bot {
+            background-color: #e2e3e5;
+            align-self: flex-start;
+            text-align: left;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-area textarea {
+            flex: 1;
+            resize: none;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid lightgray;
+            height: 60px;
+        }
+
+        .input-area button {
+            background-color: rgb(0, 149, 255);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <main>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+            <div class="container">
+                <a class="navbar-brand mx-auto d-lg-none" href="#">
+                    Medical Cirta
+                    <strong class="d-block">Health Specialist</strong>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <a class="navbar-brand d-none d-lg-block" href="#">
+                            Medical Cirta
+                            <strong class="d-block">Health Specialist</strong>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Vertical nav -->
+        <div id="vertnav">
+            <a href="/user">Dashboard</a>
+            <a href="/historique">Historique des poussée</a>
+            <a href="/traitement">Traitement</a>
+            <a href="/llm" class="selected">Chat Bot</a>
+            <a href="/remission">Rémission</a>
+            <a href="/logout" id="logout-btn">Logout</a>
+        </div>
+
+        <!-- Content -->
+        <div class="content-patient">
+            <h1>Assistant IA</h1>
+
+            <div class="chat-box" id="chatBox">
+                <!-- Messages will be shown here -->
+            </div>
+
+            <div class="input-area">
+                <textarea id="user_input" placeholder="Posez votre question..."></textarea>
+                <button onclick="sendQuery()">Envoyer</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- JS Scripts -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/scrollspy.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    <!-- Chat Script -->
+    <script>
+        function appendMessage(text, sender) {
+            const chatBox = document.getElementById("chatBox");
+            const msgDiv = document.createElement("div");
+            msgDiv.className = "message " + sender;
+            msgDiv.innerText = text;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function sendQuery() {
+            const inputElem = document.getElementById("user_input");
+            const userInput = inputElem.value.trim();
+            if (!userInput) return;
+
+            appendMessage(userInput, "user");
+            inputElem.value = "";
+
+            fetch("/api/llm/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ input: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                appendMessage(data.reply, "bot");
+            })
+            .catch(() => {
+                appendMessage("Erreur : impossible de joindre le serveur.", "bot");
+            });
+        }
+    </script>
+
+</body>
+</html>

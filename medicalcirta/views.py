@@ -196,3 +196,66 @@ def Symp(request):
         return render(request, "symptoms.html")
     else:
         return redirect('/')
+    
+
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import requests
+import json
+
+# Render the chatbot page
+def llm_page(request):
+    return render(request, "llm.html")  # Make sure this file exists in your templates folder
+
+# Handle chatbot query
+@csrf_exempt
+def query_llm(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_input = data.get("input", "")
+
+        try:
+            # Replace with your actual Gemini API key
+            api_key = "AIzaSyARWMbSMtXOTRdxQdirLaTBe2sOKCBv9LE"
+            endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+
+            # Prompt with instructions to keep it medical-only
+            payload = {
+                "contents": [
+                    {
+                        "role": "user",
+                        "parts": [
+                            {
+                                "text": (
+                                    "You are a medical assistant. Only provide responses related to health, symptoms, "
+                                    "treatments, or general medical advice. If a question is not medical, reply with: "
+                                    "'Sorry, I can only help with medical-related questions.'\n\n"
+                                    f"User question: {user_input}"
+                                )
+                            }
+                        ]
+                    }
+                ]
+            }
+
+            headers = { "Content-Type": "application/json" }
+            response = requests.post(endpoint, headers=headers, json=payload)
+            response_data = response.json()
+
+            # Debug output: Uncomment this to check actual response
+            # print(json.dumps(response_data, indent=2))
+
+            # Extract reply from Gemini
+            candidates = response_data.get("candidates", [])
+            if candidates:
+                reply = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "No reply.")
+            else:
+                reply = "No response from LLM."
+
+            return JsonResponse({"reply": reply})
+
+        except Exception as e:
+            return JsonResponse({"reply": f"Error: {str(e)}"})
+
+    return JsonResponse({"error": "Only POST requests allowed."}, status=400)
