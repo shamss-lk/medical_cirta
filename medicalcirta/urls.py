@@ -36,4 +36,7 @@ urlpatterns = [
     path('historique/', views.Historique),
     path("llm/", llm_page, name="llm_page"),
     path("api/llm/", query_llm, name="query_llm"),
+
+    path('post-state/', views.PostState),
+    path('post-operation/', views.PostOperation),
 ]
