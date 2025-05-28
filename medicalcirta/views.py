@@ -246,6 +246,7 @@ def PostOperation(request):
         return JsonResponse({'done': True})
     
     return JsonResponse({'error': 'Méthode non autorisée'}, status=400)
+
     
 
 from django.shortcuts import render
@@ -309,3 +310,85 @@ def query_llm(request):
             return JsonResponse({"reply": f"Error: {str(e)}"})
 
     return JsonResponse({"error": "Only POST requests allowed."}, status=400)
+
+
+
+def DocPatient(request):
+    # get all patient
+    patients = Patient.objects.all()
+    return render(request, "doc-patient.html", {"patients":patients})
+
+
+def PatientDetail(request, id):
+    patient = Patient.objects.get(id=id)
+    # get historique des poussées
+
+    return render(request, 'patient-detail.html', {'patient':patient, "iduser":id})
+
+
+
+def PatientState(request, id):
+    states = StateModel.objects.filter(iduser=id)
+    return render(request, "patient-state.html", {"states":states, "iduser":id})
+
+
+def HitoricPatient(request, id):
+    hitoriques = Operation.objects.filter(iduser=id, type_operation="historique des poussées")
+    return render(request, 'patient-historique.html', {"historiques":hitoriques, "iduser":id})
+
+
+
+def TraitementPatient(request, id):
+    traitements = Operation.objects.filter(iduser=id, type_operation="Traitement")
+    return render(request, 'patient-traitement.html', {"traitements":traitements, "iduser":id})
+
+
+
+def ResmissionPatient(request, id):
+    resmissions = Operation.objects.filter(iduser=id, type_operation="Rémission")
+    return render(request, 'patient-resmission.html', {"resmissions":resmissions, "iduser":id})
+
+
+def SympPatient(request, id):
+    symps = Operation.objects.filter(iduser=id, type_operation="Symptômes")
+    return render(request, 'patient-symp.html', {"symps":symps, "iduser":id})
+
+
+from message.models import Message
+
+def DocMessagePatient(request, id):
+    success = False
+    if request.method == "POST":
+        content = request.POST['content']
+        iduser = request.POST['iduser']
+        whoSend = request.POST['whoSend']
+        msg = Message()
+        msg.whoSend = whoSend
+        msg.iduser = iduser
+        msg.content = content
+
+        msg.save()
+        success = True
+    messages = Message.objects.filter(iduser=id)
+    return render(request, "doc_msg.html", {"messages":messages, "iduser":id, "success":success})
+
+def PatientMessageDoc(request):
+    success = False
+    if request.method == "POST":
+        content = request.POST['content']
+        iduser = request.POST['iduser']
+        whoSend = request.POST['whoSend']
+        msg = Message()
+        msg.whoSend = whoSend
+        msg.iduser = iduser
+        msg.content = content
+
+        msg.save()
+        success = True
+    messages = Message.objects.filter(iduser=request.session["id"])
+    return render(request, "msg_patient.html", {"messages":messages, "iduser":request.session["id"], "success":success})
+# def DocHistorique(request):
+#     # get all historic
+#     historiques = Operation.objects.filter(type_operation="historique des poussées")
+#     return render(request, "doc-historique.html", {"historiques":historiques})
+
