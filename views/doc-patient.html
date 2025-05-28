@@ -75,7 +75,6 @@ https://templatemo.com/tm-566-medic-care
                 <a href="/doctor">Dashboard</a>
                 <a href="/doc/patients">Patients</a>
                 <!-- <a href="/doc/messages">Messages</a> -->
-                
 
                 <a href="/logout" id="logout-btn">Logout</a>
                
@@ -83,26 +82,21 @@ https://templatemo.com/tm-566-medic-care
             
 
             <div class="content-patient">
-                <h1>Dashboard Doctor</h1>
+                <h1>Patients</h1>
               
-                    
+                <ul>
+                {% for patient in patients %}
+                    <li style="display: flex;justify-content: space-between;
+                    align-items: center;border-bottom: 1px solid lightgray;padding: 10px;">
+                        <div>
+                            <a href="/doc/patient/{{ patient.id  }}">{{ patient.fullname }} - {{ patient.phone }}</a>
+                        </div>
 
-                <h3>Notifications:</h3>
-                <div class="noti">
-                    <i class="fa-solid fa-bell"></i>
-                    <div>
-                        3 patients onts laissé un message.
-                    </div>
-                </div>
-
-                <div class="noti">
-                    <i class="fa-solid fa-bell"></i>
-                    <div>
-                        10 patients onts soumis un formulaire de traitement.
-                    </div>
-                </div>
-    
-
+                        <a href="/doc/patient/{{ patient.id  }}/message" style="background-color: rgb(0, 110, 255);color: white;padding: 10px;
+                        border-radius: 10px;">Message</a>
+                    </li>
+                {% endfor %}
+                </ul>
                 
             </div>
 

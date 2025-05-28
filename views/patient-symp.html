@@ -75,38 +75,46 @@ https://templatemo.com/tm-566-medic-care
                 <a href="/doctor">Dashboard</a>
                 <a href="/doc/patients">Patients</a>
                 <!-- <a href="/doc/messages">Messages</a> -->
-                
 
                 <a href="/logout" id="logout-btn">Logout</a>
                
             </div>
             
+            
+            <a href="/doc/patient/{{iduser}}/message" class="msg">Message</a>
 
             <div class="content-patient">
-                <h1>Dashboard Doctor</h1>
+                <h1>Rémission du patient</h1>
               
-                    
-
-                <h3>Notifications:</h3>
-                <div class="noti">
-                    <i class="fa-solid fa-bell"></i>
-                    <div>
-                        3 patients onts laissé un message.
-                    </div>
-                </div>
-
-                <div class="noti">
-                    <i class="fa-solid fa-bell"></i>
-                    <div>
-                        10 patients onts soumis un formulaire de traitement.
-                    </div>
-                </div>
-    
-
                 
+                {% if not symps %}
+                    <p>Aucun</p>
+                {% endif %}
+                {% for his in symps %}
+                <div class="his-item" style="border-left: 2px solid rgb(0, 96, 128); padding-left: 20px;">
+         
+                    <h5>Date:</h5>
+                    <p>{{his.date}}</p>
+                    <h5>Detail:</h5>
+                    <p>{{his.detail}}</p>
+
+                </div>
+                {% endfor %}
+                
+
+                 <h2>Consulter : </h2>
+            <a href="/doc/patient-state/{{iduser}}" style="display: block;margin-bottom: 10px;padding-bottom: 10px; color: purple;">Etat du patient</a>
+            <a href="/doc/historique-patient/{{iduser}}" style="display: block;margin-bottom: 10px;padding-bottom: 10px; color: purple;">Historique des poussées</a>
+            <a href="/doc/remission-patient/{{iduser}}" style="display: block;margin-bottom: 10px;padding-bottom: 10px; color: purple;">Rémission</a>
+            <a href="/doc/traitement-patient/{{iduser}}" style="display: block;margin-bottom: 10px;padding-bottom: 10px; color: purple;">Traitement</a>
+            <a href="/doc/symp-patient/{{iduser}}" style="display: block;margin-bottom: 10px;padding-bottom: 10px; color: purple;">Symptômes</a>
+
+            
             </div>
 
 
+
+           
 
         <!-- JAVASCRIPT FILES -->
         <script src="{% static 'js/jquery.min.js' %}"></script>

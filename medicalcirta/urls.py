@@ -32,6 +32,20 @@ urlpatterns = [
     path('symptoms/', views.Symp),
     path('historique/', views.Historique),
 
+    path('doc/patients/', views.DocPatient),
+    path('doc/patient/<int:id>/', views.PatientDetail),
+    path('doc/patient-state/<int:id>/', views.PatientState),
+    path('doc/historique-patient/<int:id>/', views.HitoricPatient),
+    path('doc/traitement-patient/<int:id>/', views.TraitementPatient),
+    path('doc/remission-patient/<int:id>/', views.ResmissionPatient),
+    path('doc/symp-patient/<int:id>/', views.SympPatient),
+    path('doc/patient/<int:id>/message/', views.DocMessagePatient),
+    path('msg_patient/', views.PatientMessageDoc),
+
+    
+
+
+
     path('post-state/', views.PostState),
     path('post-operation/', views.PostOperation),
 ]

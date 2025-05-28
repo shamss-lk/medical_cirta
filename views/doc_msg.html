@@ -73,8 +73,7 @@ https://templatemo.com/tm-566-medic-care
 
             <div id="vertnav" class="vertnavdoc">
                 <a href="/doctor">Dashboard</a>
-                <a href="/waitinglist">Waiting list</a>
-                <a href="/doc-message">Messages</a>
+                <a href="/doc/patients">Patients</a>
                 
                
                 <a href="/logout" id="logout-btn">Logout</a>
@@ -84,8 +83,33 @@ https://templatemo.com/tm-566-medic-care
 
             <div class="content-patient">
                 <h1>Doctor's Message</h1>
-              
-                 
+                
+                <!-- messages -->
+                 {% if not messages %}
+                    <p>Aucun Message.</p>
+                {% endif %}
+
+                {% for msg in messages %}
+                <div class="msg_">
+                    <h4>{{msg.whoSend}}</h4>
+                    <p>{{msg.content}}</p>
+                    <small>{{msg.createdAt}}</small>
+                </div>
+                {% endfor %}
+                <p>Votre message :</p>
+                <form action="/doc/patient/{{iduser}}/message/" method="post">
+                    {% csrf_token %}
+                    <textarea name="content" id="content" style="width: 100%;padding: 10px;
+                    border: 1px solid lightgray; margin: 10px 0px;"></textarea>
+                    <input type="hidden" value="doctor" name="whoSend">
+                    <input type="hidden" value="{{iduser}}" name="iduser">
+                    
+                    <button type="submit" style="border: none;padding:10px;background-color: blueviolet;color: white;">Valider</button>
+                    
+                    {% if success %}
+                    <div class="success">Message envoyé</div>
+                    {% endif %}
+                </form>
 
                 
             </div>
