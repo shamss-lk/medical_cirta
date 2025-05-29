@@ -1,0 +1,12 @@
+<h2>Incoming Video Call Requests</h2>
+
+{% for req in requests %}
+    <div class="request-card">
+        <p>Patient: {{ req.patient.username }} - {{ req.timestamp }}</p>
+        <a href="https://meet.jit.si/{{ req.get_room_name }}" target="_blank" class="btn btn-success">
+            Join Call
+        </a>
+    </div>
+{% empty %}
+    <p>No pending requests.</p>
+{% endfor %}

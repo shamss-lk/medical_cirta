@@ -1,138 +1,126 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <meta name="description" content="">
-        <meta name="author" content="">
+    <title>MedicalCirta HomePage</title>
 
-        <title>MedicalCirta HomePage</title>
+    <!-- CSS FILES -->        
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        <!-- CSS FILES -->        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-icons.css'%}" rel="stylesheet">
+    <link href="{% static 'css/owl.carousel.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/style.css'%}" rel="stylesheet">
+    <link href="{% static 'css/owl.theme.default.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/templatemo-medic-care.css'%}" rel="stylesheet">
+</head>
 
-        <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+<body id="top">
 
-        <link href="{% static 'css/bootstrap-icons.css'%}" rel="stylesheet">
+<main>
 
-        <link href="{% static 'css/owl.carousel.min.css'%}" rel="stylesheet">
+    <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand mx-auto d-lg-none" href="index.html">
+                Medical Cirta
+                <strong class="d-block">Health Specialist</strong>
+            </a>
 
-        <link href="{% static 'css/style.css'%}" rel="stylesheet">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-
-        <link href="{% static 'css/owl.theme.default.min.css'%}" rel="stylesheet">
-
-        <link href="{% static 'css/templatemo-medic-care.css'%}" rel="stylesheet">
-<!--
-
-TemplateMo 566 Medic Care
-
-https://templatemo.com/tm-566-medic-care
-
--->
-    </head>
-    
-    <body id="top">
-    
-        <main>
-
-            <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
-                <div class="container">
-                    <a class="navbar-brand mx-auto d-lg-none" href="index.html">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <a class="navbar-brand d-none d-lg-block" href="index.html">
                         Medical Cirta
                         <strong class="d-block">Health Specialist</strong>
                     </a>
-
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav mx-auto">
-                            
-                            
-
-                            <a class="navbar-brand d-none d-lg-block" href="index.html">
-                                Medical Cirta
-                                <strong class="d-block">Health Specialist</strong>
-                            </a>
-
-                            
-
-                        </ul>
-                    </div>
-
-                </div>
-            </nav>
-
-            <div id="vertnav">
-                <a href="/user">Dashboard</a>
-                <a href="/historique">Historique des poussée</a>
-                <a href="/traitement" class="selected">Traitement</a>
-                <a href="/symptoms">Symptômes</a>
-                <a href="/remission" >Rémission</a>
-                <a href="/msg_patient" >Message</a>
-                
-               
-                <a href="/logout" id="logout-btn">Logout</a>
-               
+                </ul>
             </div>
-            
+        </div>
+    </nav>
 
-            <div class="content-patient">
-                <h1>Message</h1>
+    <div id="vertnav">
+        <a href="/user">Dashboard</a>
+        <a href="/historique">Historique des poussée</a>
+        <a href="/traitement" class="selected">Traitement</a>
+        <a href="/symptoms">Symptômes</a>
+        <a href="/remission">Rémission</a>
+        <a href="/msg_patient">Message</a>
+        <a href="/logout" id="logout-btn">Logout</a>
+    </div>
 
-                {% if not messages %}
-                    <p>Aucun Message.</p>
-                {% endif %}
+    <div class="content-patient">
+        <h1>Message</h1>
 
-                {% for msg in messages %}
-                <div class="msg_">
-                    <h4>{{msg.whoSend}}</h4>
-                    <p>{{msg.content}}</p>
-                    <small>{{msg.createdAt}}</small>
-                </div>
-                {% endfor %}
+        {% if not messages %}
+            <p>Aucun Message.</p>
+        {% endif %}
 
-                <p>Votre message :</p>
-                <form action="/msg_patient/" method="post">
-                    {% csrf_token %}
-                    <textarea name="content" id="content" style="width: 100%;padding: 10px;
-                    border: 1px solid lightgray; margin: 10px 0px;"></textarea>
-                    <input type="hidden" value="patient" name="whoSend">
-                    <input type="hidden" value="{{iduser}}" name="iduser">
-                    
-                    <button type="submit" style="border: none;padding:10px;background-color: rgb(43, 128, 226);color: white;">Valider</button>
-                    
-                    {% if success %}
-                    <div class="success">Message envoyé</div>
-                    {% endif %}
-                </form>
-            </div>
-           
+        {% for msg in messages %}
+        <div class="msg_">
+            <h4>{{ msg.whoSend }}</h4>
+            <p>{{ msg.content }}</p>
+            <small>{{ msg.createdAt }}</small>
+        </div>
+        {% endfor %}
 
+        <p>Votre message :</p>
+        <form action="/msg_patient/" method="post">
+            {% csrf_token %}
+            <textarea name="content" id="content" style="width: 100%; padding: 10px; border: 1px solid lightgray; margin: 10px 0px;"></textarea>
+            <input type="hidden" value="patient" name="whoSend">
+            <input type="hidden" value="{{ iduser }}" name="iduser">
+            <button type="submit" style="border: none; padding:10px; background-color: rgb(43, 128, 226); color: white;">Valider</button>
+            {% if success %}
+                <div class="success">Message envoyé</div>
+            {% endif %}
+        </form>
 
+        <!-- NEW: Video Call Section -->
+        <hr style="margin: 40px 0;">
+        <h2>Appel Vidéo</h2>
+        <button onclick="startJitsiCall()" style="padding: 10px 20px; background-color: green; color: white; border: none;">
+            Rejoindre l'appel vidéo
+        </button>
+        <div id="jitsi-container" style="margin-top: 20px; width: 100%; height: 600px;"></div>
+    </div>
 
-        <!-- JAVASCRIPT FILES -->
-        <script src="{% static 'js/jquery.min.js' %}"></script>
-        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-        <script src="{% static 'js/scrollspy.min.js' %}"></script>
-        <script src="{% static 'js/custom.js' %}"></script>
-        <script src="{% static 'js/state.js' %}"></script>
+</main>
 
-<!--
+<!-- JS FILES -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/scrollspy.min.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+<script src="{% static 'js/state.js' %}"></script>
 
-TemplateMo 566 Medic Care
+<!-- Jitsi Meet API -->
+<script src="https://meet.jit.si/external_api.js"></script>
+<script>
+    function startJitsiCall() {
+        const domain = "meet.jit.si";
+        const options = {
+            roomName: "MedicalCirtaRoom123",  // optional: change for uniqueness
+            width: "100%",
+            height: 600,
+            parentNode: document.getElementById("jitsi-container"),
+            interfaceConfigOverwrite: {
+                SHOW_JITSI_WATERMARK: false
+            },
+        };
+        const api = new JitsiMeetExternalAPI(domain, options);
+    }
+</script>
 
-https://templatemo.com/tm-566-medic-care
-
--->
-    </body>
+</body>
 </html>
