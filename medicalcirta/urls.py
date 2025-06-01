@@ -41,7 +41,7 @@ urlpatterns = [
     path('doc/symp-patient/<int:id>/', views.SympPatient),
     path('doc/patient/<int:id>/message/', views.DocMessagePatient),
     path('msg_patient/', views.PatientMessageDoc),
-
+    path('delete-noti/', views.DeleteNoti),
     
 
 

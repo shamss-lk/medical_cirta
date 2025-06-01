@@ -143,8 +143,20 @@
     display: flex;
     align-items: flex-start;
     margin: 10px;
+  
 }
-
+.form-x{
+    position: absolute;
+    top: 10px;
+    left: 100%;
+}
+.form-x button{
+    border: 1px solid lightgray;
+    padding: 5px 12px;
+    border-radius: 50px;
+    background-color: white;
+    color: black;
+}
 .noti i{
     color: rgb(0, 136, 255);
     font-size: 20px;
@@ -153,7 +165,8 @@
 }
 
 .noti div{
-    background-color: lightgray;
+    background-color: rgb(239, 239, 239);
     padding: 10px;
     border-radius: 10px;
+      position: relative;
 }
