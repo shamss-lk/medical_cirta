@@ -25,15 +25,16 @@ urlpatterns = [
     path('login/', views.Login),
     path('login_doc/', views.LoginDoc),
     path('signup/', views.Signup),
-    path('user/', views.PatientHome),
+    path('user/', views.PatientHome , name='user'),
     path('doctor/', views.DoctorHome),
     path('waitinglist/', views.WaitingList),
     path('doc-message/', views.DocMessage),
-    path('logout/', views.Logout),
-    path('traitement/', views.Traitement),
-    path('remission/', views.Remission),
-    path('symptoms/', views.Symp),
-    path('historique/', views.Historique),
+    path('logout/', views.Logout, name='logout'),
+    path('traitement/', views.Traitement, name='traitement'), 
+    path('remission/', views.Remission, name='remission'),
+    path('symptoms/', views.Symp, name='symp'),
+    path('historique/', views.Historique, name='historique'),
+
     path("llm/", llm_page, name="llm_page"),
     path("api/llm/", query_llm, name="query_llm"),
 
@@ -45,12 +46,22 @@ urlpatterns = [
     path('doc/remission-patient/<int:id>/', views.ResmissionPatient),
     path('doc/symp-patient/<int:id>/', views.SympPatient),
     path('doc/patient/<int:id>/message/', views.DocMessagePatient),
-    path('msg_patient/', views.PatientMessageDoc),
-
+    path('msg_patient/', views.PatientMessageDoc, name='msg_patient'),
+    path('delete-noti/', views.DeleteNoti),
     
-
-
 
     path('post-state/', views.PostState),
     path('post-operation/', views.PostOperation),
+    path('dashboard/', views.patient_dashboard, name='dashboard'),
+
+#     path('dashboard/', views.patient_dashboard, name='dashboard'),
+# path('logout/', views.logout_view, name='logout'),
+
+# path('add/flare/', views.add_flare, name='add_flare'),
+# path('add/health-status/', views.add_health_status, name='add_health_status'),
+# path('add/cdai/', views.add_cdai, name='add_cdai'),
+# path('add/treatment/', views.add_treatment, name='add_treatment'),
+# path('add/diet/', views.add_diet, name='add_diet'),
+# path('add/exam/', views.add_exam, name='add_exam'),
+
 ]

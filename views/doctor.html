@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token }}">
         <meta name="description" content="">
         <meta name="author" content="">
 
@@ -88,23 +88,28 @@ https://templatemo.com/tm-566-medic-care
                     
 
                 <h3>Notifications:</h3>
-                <div class="noti">
-                    <i class="fa-solid fa-bell"></i>
-                    <div>
-                        3 patients onts laissé un message.
-                    </div>
-                </div>
+                
+                {% for notification in notifications %}
+                    <div class="noti" id="noti{{notification.id}}">
+                        <i class="fa-solid fa-bell"></i>
+                        <div>
+                            <p style="color:black">{{notification.description}}</p>
+                            <small style="color:gray">{{notification.user_name}} - {{notification.created_at}}</small>
 
-                <div class="noti">
-                    <i class="fa-solid fa-bell"></i>
-                    <div>
-                        10 patients onts soumis un formulaire de traitement.
+                            <span class="form-x">
+                            
+                                <button type="submit" onclick="DeleteNotification('{{notification.id}}')">x</button>
+                            </span>
+                        </div>
+                        
                     </div>
-                </div>
+
+                 {% endfor %}
     
 
                 
             </div>
+
 
 
 
@@ -114,8 +119,32 @@ https://templatemo.com/tm-566-medic-care
         <script src="{% static 'js/owl.carousel.min.js' %}"></script>
         <script src="{% static 'js/scrollspy.min.js' %}"></script>
         <script src="{% static 'js/custom.js' %}"></script>
+        <script>
+            function getCSRFToken() {
+                const meta = document.querySelector('meta[name="csrf-token"]');
+                return meta ? meta.getAttribute('content') : '';
+            }
+            function DeleteNotification(id){
+
+                $.ajaxSetup({
+                    headers: { "X-CSRFToken": getCSRFToken() }
+                });
+               $.ajax({
+                type:"POST",
+                url:'/delete-noti/',
+                data:{id},
+                success:function(res){
+                    console.log(res)
+                    if(res.done){
+                        $('#noti'+id).slideUp()
+                    }
+                }
+               })
+            }
+        </script>
 <!--
 
+            
 TemplateMo 566 Medic Care
 
 https://templatemo.com/tm-566-medic-care

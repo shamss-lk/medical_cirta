@@ -7,7 +7,7 @@ from patient.models import Patient
 from docs.models import Docs 
 from state.models import StateModel 
 from operation.models import Operation 
-
+from notification.models import Notification
 
 def HomePage(request):
     if 'login' not in request.session:
@@ -55,13 +55,13 @@ def Login(request):
                 request.session['login'] = True
                 request.session['fullname'] = obj[0].fullname
                 request.session['id'] = obj[0].id
-                return redirect('/user')
+                return redirect('/dashboard/')
             else:
                 err_auth = True
 
         return render(request, "login.html", {"err_auth":err_auth})
     else:
-        return redirect('/user')
+        return redirect('/dashboard/')
 
 
 def Signup(request):
@@ -105,6 +105,12 @@ def Signup(request):
 
                     success = True
 
+                    notif = Notification()
+                    notif.user_name = fullname
+                    notif.iduser = npatient.id
+                    notif.description = 'User - '+notif.user_name+' subscribe to the platform'
+                    notif.save()
+
         return render(request, "signup.html", {"success":success, 'err_psw':err_password, 'err_email':err_email})
     else:
         return redirect('/user')
@@ -113,6 +119,11 @@ def Signup(request):
 
 
 
+
+def DeleteNoti(request):
+    Notification.objects.filter(id=request.POST['id']).delete()
+
+    return JsonResponse({'done': True})
 
 def PatientHome(request):
     if "login" not in request.session:
@@ -131,7 +142,8 @@ def DoctorHome(request):
         request.session['logindoc'] = False
 
     if request.session['logindoc'] == True:
-        return render(request, "doctor.html")
+        notifications = Notification.objects.order_by('-created_at')[:20]
+        return render(request, "doctor.html", {"notifications":notifications})
     else:
         return redirect('/')
     
@@ -223,6 +235,12 @@ def PostState(request):
         st.iduser = iduser
         st.save()
 
+        notif = Notification()
+        notif.user_name = request.session['fullname']
+        notif.iduser = request.session['id']
+        notif.description = 'User - '+notif.user_name+' submitted a health-state form'
+        notif.save()
+
         return JsonResponse({'done': True})
     
     return JsonResponse({'error': 'Méthode non autorisée'}, status=400)
@@ -242,6 +260,12 @@ def PostOperation(request):
         st.detail = detail        
         st.iduser = iduser
         st.save()
+
+        notif = Notification()
+        notif.user_name = request.session['fullname']
+        notif.iduser = request.session['id']
+        notif.description = 'User - '+notif.user_name+' submitted '+type+ ' form'
+        notif.save()
 
         return JsonResponse({'done': True})
     
@@ -385,10 +409,22 @@ def PatientMessageDoc(request):
 
         msg.save()
         success = True
+        notif = Notification()
+        notif.user_name = request.session['fullname']
+        notif.iduser = request.session['id']
+        notif.description = 'User - '+notif.user_name+' sent a new message...'
+        notif.save()
+
     messages = Message.objects.filter(iduser=request.session["id"])
     return render(request, "msg_patient.html", {"messages":messages, "iduser":request.session["id"], "success":success})
+
 # def DocHistorique(request):
 #     # get all historic
 #     historiques = Operation.objects.filter(type_operation="historique des poussées")
 #     return render(request, "doc-historique.html", {"historiques":historiques})
 
+
+from django.shortcuts import render
+
+def patient_dashboard(request):
+    return render(request, 'dashboard_advanced.html')
