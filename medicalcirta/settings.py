@@ -23,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6um7%=qq13ib)iw73fxp6l%u-97(#e1#&jp0g(2%(e9r6vkbfm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+# DEBUG = True
+DEBUG = os.environ.get('RENDER', None) is None
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -127,4 +127,5 @@ import os
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'public'),
 )
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
