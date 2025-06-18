@@ -2,7 +2,9 @@ services:
   - type: web
     name: medicalcirta
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      echo "python-3.8" > .python-version
+      pip install -r requirements.txt
     startCommand: gunicorn medicalcirta.wsgi:application
     envVars:
       - key: DJANGO_SECRET_KEY
