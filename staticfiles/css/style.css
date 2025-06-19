@@ -1,0 +1,172 @@
+
+
+.form-med, .form-doc{
+    max-width: 800px;
+    margin: 150px auto 50px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px lightgray;
+}
+
+.form-med input, .form-doc input{
+    padding: 8px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    display: block;
+    margin: 5px 0px;
+    width: 350px;
+    box-sizing: border-box;
+}
+
+.form-med textarea, .form-doc textarea{
+    padding: 8px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    display: block;
+    margin: 5px 0px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 150px;
+}
+
+.form-med h1{
+    color: rgb(0, 136, 255);
+}
+
+.form-doc h1{
+    color: rgb(83, 0, 128);
+}
+
+.champ {
+    margin: 10px 10px;
+    display: inline-block;
+}
+.form-med button, .form-doc button{
+    border: none;
+    background-color: rgb(0, 136, 255);
+    color: white;
+    width: 100%;
+    display: block;
+    padding: 10px 0px;
+    margin: 20px 0px;
+}
+
+.form-doc button{
+    background-color: blueviolet !important;
+}
+.success{
+    color: green;
+}
+.err{
+    color: red;
+}
+
+.vertnavdoc{
+    background-color: blueviolet !important;
+}
+#vertnav{
+    background-color: rgb(0, 136, 255);
+    width: 230px;
+    position: fixed;
+    left: 0;
+    top: 90px;
+    height: 100%;
+    padding: 50px 10px 10px 10px ;
+}
+
+#vertnav a{
+    display: block;
+    color: rgb(241, 240, 240);
+    transition: 0.3s;
+    padding: 10px;
+}
+#vertnav a:hover{
+    color: white;
+    padding-left: 15px;
+    transition: 0.3s;
+    background-color: rgb(11, 106, 188);
+}
+
+.vertnavdoc a:hover{
+    background-color: purple !important;
+}
+
+.msg{
+    padding: 10px;
+    background-color: purple;
+    color: white;
+    text-decoration: none;
+    position: fixed;
+    top: 100px;
+    left: 92%;
+    box-shadow: 3px 3px 10px rgb(214, 162, 229);
+}
+.msg_{
+    margin-left: 10px;
+    margin-top: 10px;
+    background-color: rgb(235, 235, 235);
+    padding: 15px;
+    border-radius: 10px;
+}
+.s-item{
+    padding: 10px;
+    border: 1px solid lightgray;
+    background-color: rgb(236, 236, 236);
+    display: inline-block;
+    margin: 20px;
+}
+.content-patient{
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px lightgray;
+    margin-left: 250px;
+    margin-top: 50px;
+    padding: 20px;
+    margin-right: 10px;
+}
+
+#dashboard-command{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+.mcard{
+    width: 30%;
+    margin: 10px;
+}
+.mcard div{
+    padding: 10px;
+    border: 1px solid lightgray;
+    margin: 10px 0px;
+}
+.noti{
+    display: flex;
+    align-items: flex-start;
+    margin: 10px;
+  
+}
+.form-x{
+    position: absolute;
+    top: 10px;
+    left: 100%;
+}
+.form-x button{
+    border: 1px solid lightgray;
+    padding: 5px 12px;
+    border-radius: 50px;
+    background-color: white;
+    color: black;
+}
+.noti i{
+    color: rgb(0, 136, 255);
+    font-size: 20px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.noti div{
+    background-color: rgb(239, 239, 239);
+    padding: 10px;
+    border-radius: 10px;
+      position: relative;
+}
