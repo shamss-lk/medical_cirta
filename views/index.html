@@ -34,7 +34,13 @@ https://templatemo.com/tm-566-medic-care
 
 -->
     </head>
-    
+    <script>
+  const bootstrapLink = document.querySelector('link[href*="bootstrap"]');
+  if (bootstrapLink) {
+    bootstrapLink.onerror = () => alert("Bootstrap failed to load.");
+  }
+    </script>
+
     <body id="top">
     
         <main>
