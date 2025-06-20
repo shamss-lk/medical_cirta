@@ -29,7 +29,7 @@ SECRET_KEY = '6um7%=qq13ib)iw73fxp6l%u-97(#e1#&jp0g(2%(e9r6vkbfm'
 # DEBUG = True
 DEBUG = os.environ.get('RENDER', None) is None
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['https://medical-crohncare.onrender.com']
+ALLOWED_HOSTS = ['medical-crohncare.onrender.com', '127.0.0.1', 'localhost']
 
 # Application definition
 
